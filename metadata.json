@@ -1,0 +1,13 @@
+{
+  "name": "Zabbix Monitor",
+  "description": "Monitor Zabbix active problems and alerts directly from the GNOME panel. Displays severity badges, affected hosts, timestamps, direct problem links, and provides desktop notifications.",
+  "uuid": "zabbix-monitor@loginone",
+  "shell-version": [ "45", "46", "47", "48", "49", "50" ],
+  "url": "https://github.com/loginone33/Gnome-Extension-Zabbix-Monitor",
+  "donations": {
+    "kofi": "loginone",
+    "buymeacoffee": "loginone"
+  },
+  "settings-schema": "org.gnome.shell.extensions.zabbix-monitor",
+  "gettext-domain": "zabbix-monitor@loginone"
+}

@@ -1,0 +1,85 @@
+.zabbix-panel-box {
+    spacing: 5px;
+}
+
+.zabbix-count-label {
+    font-weight: bold;
+    font-size: 0.95em;
+    padding-left: 2px;
+}
+
+.zabbix-icon-ok {
+    color: #57e389;
+}
+
+.zabbix-icon-error {
+    color: #e01b24;
+}
+
+.zabbix-icon-sev-0 { color: #97aab3; }
+.zabbix-icon-sev-1 { color: #7499ff; }
+.zabbix-icon-sev-2 { color: #ffc859; }
+.zabbix-icon-sev-3 { color: #ffa059; }
+.zabbix-icon-sev-4 { color: #e97659; }
+.zabbix-icon-sev-5 { color: #e45959; }
+
+.zabbix-badge {
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 1px 5px;
+    border-radius: 4px;
+    margin-right: 6px;
+}
+
+.zabbix-badge-sev-0 { background-color: #97aab3; color: #1e1e1e; }
+.zabbix-badge-sev-1 { background-color: #7499ff; color: #ffffff; }
+.zabbix-badge-sev-2 { background-color: #ffc859; color: #1e1e1e; }
+.zabbix-badge-sev-3 { background-color: #ffa059; color: #1e1e1e; }
+.zabbix-badge-sev-4 { background-color: #e97659; color: #ffffff; }
+.zabbix-badge-sev-5 { background-color: #e45959; color: #ffffff; }
+
+.zabbix-problem-item {
+    padding: 6px 12px;
+}
+
+.zabbix-problem-name {
+    font-weight: 500;
+}
+
+.zabbix-meta-box {
+    margin-top: 2px;
+}
+
+.zabbix-host-label {
+    font-size: 0.82em;
+    font-weight: bold;
+    color: #78aeed;
+}
+
+.zabbix-dot-label {
+    font-size: 0.82em;
+    opacity: 0.45;
+}
+
+.zabbix-time-label {
+    font-size: 0.8em;
+    opacity: 0.65;
+}
+
+.zabbix-empty-item {
+    font-style: italic;
+    opacity: 0.75;
+}
+
+.zabbix-menu-header {
+    font-weight: bold;
+    font-size: 0.88em;
+    opacity: 0.7;
+    padding-bottom: 4px;
+}
+
+.zabbix-more-item {
+    font-style: italic;
+    font-size: 0.85em;
+    opacity: 0.8;
+}

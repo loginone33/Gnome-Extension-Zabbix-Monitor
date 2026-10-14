@@ -1,0 +1,6 @@
+*.zip
+schemas/gschemas.compiled
+zabbix-monitor@loginone.shell-extension/
+.shelf/
+.idea/
+.vscode/
