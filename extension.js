@@ -50,7 +50,7 @@ export default class ZabbixExtension extends Extension {
 
     _resetTimer() {
         if (this._timeoutId) {
-            GLib.Source.remove(this._timeoutId);
+            GLib.source_remove(this._timeoutId);
             this._timeoutId = null;
         }
 
@@ -86,6 +86,9 @@ export default class ZabbixExtension extends Extension {
                 { minSeverity, onlyUnacknowledged },
                 this._cancellable
             );
+            if (!this.settings)
+                return;
+
             this._lastProblems = problems;
             this._indicator?.updateStatus(problems);
 
@@ -99,6 +102,9 @@ export default class ZabbixExtension extends Extension {
             if (e.matches && e.matches(Gio.IOErrorEnum, Gio.IOErrorEnum.CANCELLED)) {
                 return;
             }
+            if (!this.settings)
+                return;
+
             this._indicator?.updateStatus([], e);
         }
     }
@@ -124,7 +130,7 @@ export default class ZabbixExtension extends Extension {
             const hostInfo = latest?.hostname ? `[${latest.hostname}] ` : '';
             const probDesc = latest?.name ? `\nLatest: ${hostInfo}${latest.name}` : '';
 
-            Main.notifyError(
+            Main.notify(
                 `🔴 Zabbix: Problem Count Increased (+${diff})`,
                 `Alert count increased: ${oldCount} ➔ ${newCount}${probDesc}`
             );
@@ -146,7 +152,7 @@ export default class ZabbixExtension extends Extension {
 
     disable() {
         if (this._timeoutId) {
-            GLib.Source.remove(this._timeoutId);
+            GLib.source_remove(this._timeoutId);
             this._timeoutId = null;
         }
 

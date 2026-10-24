@@ -8,6 +8,5 @@
     "kofi": "loginone",
     "buymeacoffee": "loginone"
   },
-  "settings-schema": "org.gnome.shell.extensions.zabbix-monitor",
-  "gettext-domain": "zabbix-monitor@loginone"
+  "settings-schema": "org.gnome.shell.extensions.zabbix-monitor"
 }

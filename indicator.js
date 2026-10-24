@@ -70,7 +70,7 @@ class ZabbixIndicator extends PanelMenu.Button {
         openWebItem.connect('activate', () => {
             const url = this._extension.settings.get_string('zabbix-url');
             if (url) {
-                Gio.AppInfo.launch_default_for_uri(url, null);
+                Gio.AppInfo.launch_default_for_uri_async(url, null, null, null);
             }
         });
         this.menu.addMenuItem(openWebItem);
@@ -212,7 +212,7 @@ class ZabbixIndicator extends PanelMenu.Button {
             item.connect('activate', () => {
                 if (baseUrl) {
                     const targetUrl = `${baseUrl}/zabbix.php?action=problem.view&filter_name=${encodeURIComponent(prob.name)}`;
-                    Gio.AppInfo.launch_default_for_uri(targetUrl, null);
+                    Gio.AppInfo.launch_default_for_uri_async(targetUrl, null, null, null);
                 }
             });
 
@@ -226,10 +226,15 @@ class ZabbixIndicator extends PanelMenu.Button {
             });
             moreItem.connect('activate', () => {
                 if (baseUrl) {
-                    Gio.AppInfo.launch_default_for_uri(`${baseUrl}/zabbix.php?action=problem.view`, null);
+                    Gio.AppInfo.launch_default_for_uri_async(`${baseUrl}/zabbix.php?action=problem.view`, null, null, null);
                 }
             });
             this._problemsSection.addMenuItem(moreItem);
         }
+    }
+
+    destroy() {
+        this._extension = null;
+        super.destroy();
     }
 });

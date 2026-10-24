@@ -31,6 +31,9 @@ export class ZabbixClient {
         });
 
         const message = Soup.Message.new('POST', endpoint);
+        if (!message)
+            throw new Error(`Invalid Zabbix server URL: "${endpoint}"`);
+
         if (token) {
             message.get_request_headers().append('Authorization', `Bearer ${token}`);
         }
@@ -116,12 +119,11 @@ export class ZabbixClient {
             if (Array.isArray(triggers)) {
                 for (const t of triggers) {
                     const host = t.hosts?.[0];
-                    if (host) {
-                        hostMap.set(t.triggerid, host.name || host.host || '');
-                    }
+                    hostMap.set(t.triggerid, host ? (host.name || host.host || '') : '');
                 }
             }
 
+            // Zabbix problem.get ignores host/item status; trigger.get filters inactive/dependent alerts
             const activeProblems = [];
             for (const prob of problems) {
                 if (prob.objectid && prob.objectid !== '0') {

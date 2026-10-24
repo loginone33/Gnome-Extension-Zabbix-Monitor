@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<schemalist gettext-domain="zabbix-monitor@loginone">
+<schemalist>
   <schema id="org.gnome.shell.extensions.zabbix-monitor" path="/org/gnome/shell/extensions/zabbix-monitor/">
     <key name="zabbix-url" type="s">
-      <default>'https://zabbix.example.com'</default>
+      <default>''</default>
       <summary>Zabbix Server URL</summary>
       <description>Base URL of the Zabbix Web Frontend (e.g. https://zabbix.example.com).</description>
     </key>
