@@ -8,6 +8,10 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import { SEVERITIES } from './zabbixApi.js';
 
+const VERTICAL_BOX_PROPS = 'orientation' in St.BoxLayout.prototype
+    ? { orientation: Clutter.Orientation.VERTICAL }
+    : { vertical: true };
+
 function formatTimeAgo(epochSeconds) {
     const elapsed = Math.floor(Date.now() / 1000) - epochSeconds;
     if (elapsed < 60) return `${Math.max(0, elapsed)}s ago`;
@@ -154,7 +158,7 @@ class ZabbixIndicator extends PanelMenu.Button {
             });
 
             const contentBox = new St.BoxLayout({
-                vertical: true,
+                ...VERTICAL_BOX_PROPS,
                 x_expand: true,
             });
 
