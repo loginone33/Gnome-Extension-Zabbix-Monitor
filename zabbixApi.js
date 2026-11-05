@@ -3,12 +3,12 @@ import GLib from 'gi://GLib';
 import Gio from 'gi://Gio';
 
 export const SEVERITIES = [
-    {id: 0, name: 'Not classified', color: '#97AAB3', cssClass: 'zabbix-sev-0'},
-    {id: 1, name: 'Information',    color: '#7499FF', cssClass: 'zabbix-sev-1'},
-    {id: 2, name: 'Warning',        color: '#FFC859', cssClass: 'zabbix-sev-2'},
-    {id: 3, name: 'Average',        color: '#FFA059', cssClass: 'zabbix-sev-3'},
-    {id: 4, name: 'High',           color: '#E97659', cssClass: 'zabbix-sev-4'},
-    {id: 5, name: 'Disaster',       color: '#E45959', cssClass: 'zabbix-sev-5'},
+    'Not classified',
+    'Information',
+    'Warning',
+    'Average',
+    'High',
+    'Disaster',
 ];
 
 export class ZabbixClient {

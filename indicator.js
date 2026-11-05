@@ -8,20 +8,10 @@ import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 import * as PopupMenu from 'resource:///org/gnome/shell/ui/popupMenu.js';
 import { SEVERITIES } from './zabbixApi.js';
 
-const VERTICAL_BOX_PROPS = 'orientation' in St.BoxLayout.prototype
-    ? { orientation: Clutter.Orientation.VERTICAL }
-    : { vertical: true };
-
-function formatTimeAgo(epochSeconds) {
-    if (!Number.isFinite(epochSeconds)) return '';
-    const elapsed = Math.floor(Date.now() / 1000) - epochSeconds;
-    if (elapsed < 60) return `${Math.max(0, elapsed)}s ago`;
-    const minutes = Math.floor(elapsed / 60);
-    if (minutes < 60) return `${minutes}m ago`;
-    const hours = Math.floor(minutes / 60);
-    if (hours < 24) return `${hours}h ago`;
-    const days = Math.floor(hours / 24);
-    return `${days}d ago`;
+function formatTime(epochSeconds) {
+    if (!epochSeconds) return '';
+    const date = GLib.DateTime.new_from_unix_local(epochSeconds);
+    return date ? date.format('%H:%M') : '';
 }
 
 export const ZabbixIndicator = GObject.registerClass(
@@ -150,18 +140,19 @@ class ZabbixIndicator extends PanelMenu.Button {
 
         for (const prob of displayList) {
             const sevNum = parseInt(prob.severity, 10) || 0;
-            const sevMeta = SEVERITIES[sevNum] || SEVERITIES[0];
-            const timeAgo = formatTimeAgo(parseInt(prob.clock, 10));
+            const sevName = SEVERITIES[sevNum] || SEVERITIES[0];
+            const timeStr = formatTime(parseInt(prob.clock, 10));
 
             const item = new PopupMenu.PopupBaseMenuItem({
                 activate: true,
                 style_class: `zabbix-problem-item zabbix-item-sev-${sevNum}`,
             });
 
-            const contentBox = new St.BoxLayout({
-                ...VERTICAL_BOX_PROPS,
-                x_expand: true,
-            });
+            const contentBox = new St.BoxLayout({ x_expand: true });
+            if ('orientation' in contentBox)
+                contentBox.orientation = Clutter.Orientation.VERTICAL;
+            else
+                contentBox.vertical = true;
 
             const titleBox = new St.BoxLayout({
                 x_expand: true,
@@ -169,7 +160,7 @@ class ZabbixIndicator extends PanelMenu.Button {
             });
 
             const badge = new St.Label({
-                text: `[${sevMeta.name.toUpperCase()}]`,
+                text: `[${sevName.toUpperCase()}]`,
                 style_class: `zabbix-badge zabbix-badge-sev-${sevNum}`,
                 y_align: Clutter.ActorAlign.CENTER,
             });
@@ -206,7 +197,7 @@ class ZabbixIndicator extends PanelMenu.Button {
             }
 
             const ackStr = prob.acknowledged === '1' ? 'Acknowledged' : '';
-            const metaTime = [timeAgo, ackStr].filter(Boolean).join(' • ');
+            const metaTime = [timeStr, ackStr].filter(Boolean).join(' • ');
             const timeLabel = new St.Label({
                 text: metaTime,
                 style_class: 'zabbix-time-label',

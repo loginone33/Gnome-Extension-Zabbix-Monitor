@@ -132,17 +132,17 @@ export default class ZabbixExtension extends Extension {
             const probDesc = latest?.name ? `\nLatest: ${hostInfo}${latest.name}` : '';
 
             Main.notify(
-                `🔴 Zabbix: Problem Count Increased (+${diff})`,
+                `Zabbix: Problem Count Increased (+${diff})`,
                 `Alert count increased: ${oldCount} ➔ ${newCount}${probDesc}`
             );
         } else if (newCount < oldCount) {
             const diff = oldCount - newCount;
             const msg = newCount === 0
-                ? `All active problems resolved! (${oldCount} ➔ 0)`
+                ? `All active problems resolved (${oldCount} ➔ 0)`
                 : `Alert count decreased: ${oldCount} ➔ ${newCount}`;
 
             Main.notify(
-                `🟢 Zabbix: Problem Count Decreased (-${diff})`,
+                `Zabbix: Problem Count Decreased (-${diff})`,
                 msg
             );
         }

@@ -1,6 +1,6 @@
 # Zabbix Monitor for GNOME Shell
 
-**Zabbix Monitor** is a lightweight, responsive GNOME Shell extension that monitors active problems and triggers directly from the GNOME panel in real time.
+**Zabbix Monitor** is a GNOME Shell extension that monitors active problems and triggers directly from the top panel.
 
 ---
 
@@ -9,7 +9,7 @@
 - **Real-Time Panel Indicator**: Displays the current problem count with color-coded severity icons (OK, Warning, Average, High, Disaster).
 - **Interactive Dropdown Menu**:
   - View the list of active problems with severity badges and affected host names.
-  - Formatted elapsed time (`10s ago`, `5m ago`, `2h ago`).
+  - Problem timestamp (`HH:MM`).
   - Acknowledgment status flag.
   - Click any problem to jump directly to its details in your Zabbix Web UI.
 - **Desktop Notifications**: Configurable alerts when the problem count increases or decreases, with adjustable cooldown to avoid alert fatigue.

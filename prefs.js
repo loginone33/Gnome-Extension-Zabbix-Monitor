@@ -15,8 +15,7 @@ export default class ZabbixPreferences extends ExtensionPreferences {
         window.add(page);
 
         const connGroup = new Adw.PreferencesGroup({
-            title: 'Zabbix Server Connection',
-            description: 'Enter your Zabbix Web URL and Personal API Token (Bearer Token)',
+            title: 'Connection',
         });
         page.add(connGroup);
 
@@ -27,14 +26,14 @@ export default class ZabbixPreferences extends ExtensionPreferences {
         connGroup.add(urlRow);
 
         const tokenRow = new Adw.PasswordEntryRow({
-            title: 'API Token (Zabbix 5.4+)',
+            title: 'API Token',
         });
         settings.bind('api-token', tokenRow, 'text', Gio.SettingsBindFlags.DEFAULT);
         connGroup.add(tokenRow);
 
         const testRow = new Adw.ActionRow({
             title: 'Test Connection',
-            subtitle: 'Verify server reachability and API token authentication',
+            subtitle: 'Check server reachability and token',
         });
         const testButton = new Gtk.Button({
             label: 'Test',
@@ -46,7 +45,6 @@ export default class ZabbixPreferences extends ExtensionPreferences {
 
         const monitorGroup = new Adw.PreferencesGroup({
             title: 'Monitoring',
-            description: 'Polling interval and alert filter settings',
         });
         page.add(monitorGroup);
 
@@ -79,28 +77,24 @@ export default class ZabbixPreferences extends ExtensionPreferences {
         monitorGroup.add(severityRow);
 
         const unackRow = new Adw.SwitchRow({
-            title: 'Only unacknowledged problems',
-            subtitle: 'Hide problems already acknowledged by administrators',
+            title: 'Only unacknowledged',
         });
         settings.bind('only-unacknowledged', unackRow, 'active', Gio.SettingsBindFlags.DEFAULT);
         monitorGroup.add(unackRow);
 
         const countRow = new Adw.SwitchRow({
             title: 'Show count in panel',
-            subtitle: 'Display active problem count badge next to the icon',
         });
         settings.bind('show-count', countRow, 'active', Gio.SettingsBindFlags.DEFAULT);
         monitorGroup.add(countRow);
 
         const notifGroup = new Adw.PreferencesGroup({
             title: 'Notifications',
-            description: 'Desktop alerts on problem count changes',
         });
         page.add(notifGroup);
 
         const notifSwitch = new Adw.SwitchRow({
-            title: 'Problem count change notifications',
-            subtitle: 'Send desktop notification when problem count increases or decreases',
+            title: 'Enable notifications',
         });
         settings.bind('enable-notifications', notifSwitch, 'active', Gio.SettingsBindFlags.DEFAULT);
         notifGroup.add(notifSwitch);
@@ -113,7 +107,7 @@ export default class ZabbixPreferences extends ExtensionPreferences {
         });
         const cooldownRow = new Adw.SpinRow({
             title: 'Notification cooldown (seconds)',
-            subtitle: 'Minimum delay between notifications to prevent notification flooding',
+            subtitle: 'Rate limit notifications',
             adjustment: cooldownAdjustment,
         });
         settings.bind('notification-cooldown', cooldownRow, 'value', Gio.SettingsBindFlags.DEFAULT);
