@@ -105,6 +105,7 @@ export default class ZabbixExtension extends Extension {
             if (!this.settings)
                 return;
 
+            console.error(e);
             this._indicator?.updateStatus([], e);
         }
     }

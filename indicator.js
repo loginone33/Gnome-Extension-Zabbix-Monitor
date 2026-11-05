@@ -13,6 +13,7 @@ const VERTICAL_BOX_PROPS = 'orientation' in St.BoxLayout.prototype
     : { vertical: true };
 
 function formatTimeAgo(epochSeconds) {
+    if (!Number.isFinite(epochSeconds)) return '';
     const elapsed = Math.floor(Date.now() / 1000) - epochSeconds;
     if (elapsed < 60) return `${Math.max(0, elapsed)}s ago`;
     const minutes = Math.floor(elapsed / 60);
@@ -72,7 +73,7 @@ class ZabbixIndicator extends PanelMenu.Button {
 
         const openWebItem = new PopupMenu.PopupImageMenuItem('Open Zabbix Web', 'web-browser-symbolic');
         openWebItem.connect('activate', () => {
-            const url = this._extension.settings.get_string('zabbix-url');
+            const url = this._extension.settings.get_string('zabbix-url')?.trim();
             if (url) {
                 Gio.AppInfo.launch_default_for_uri_async(url, null, null, null);
             }
@@ -143,7 +144,7 @@ class ZabbixIndicator extends PanelMenu.Button {
         this._icon.add_style_class_name(`zabbix-icon-sev-${maxSev}`);
         this._countLabel.set_text(showCount ? `${count}` : '');
 
-        const baseUrl = this._extension.settings.get_string('zabbix-url').replace(/\/+$/, '');
+        const baseUrl = this._extension.settings.get_string('zabbix-url')?.trim().replace(/\/+$/, '');
         const maxDisplay = 20;
         const displayList = problems.slice(0, maxDisplay);
 
@@ -204,8 +205,10 @@ class ZabbixIndicator extends PanelMenu.Button {
                 metaBox.add_child(dotLabel);
             }
 
+            const ackStr = prob.acknowledged === '1' ? 'Acknowledged' : '';
+            const metaTime = [timeAgo, ackStr].filter(Boolean).join(' • ');
             const timeLabel = new St.Label({
-                text: `${timeAgo}${prob.acknowledged === '1' ? ' • Acknowledged' : ''}`,
+                text: metaTime,
                 style_class: 'zabbix-time-label',
             });
             metaBox.add_child(timeLabel);

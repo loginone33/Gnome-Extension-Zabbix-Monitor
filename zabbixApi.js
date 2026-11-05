@@ -21,7 +21,7 @@ export class ZabbixClient {
             throw new Error('Zabbix server URL is not configured.');
         }
 
-        const endpoint = url.replace(/\/+$/, '') + '/api_jsonrpc.php';
+        const endpoint = url.trim().replace(/\/+$/, '') + '/api_jsonrpc.php';
         const payload = JSON.stringify({
             jsonrpc: '2.0',
             method,
